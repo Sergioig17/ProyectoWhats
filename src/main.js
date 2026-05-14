@@ -10,7 +10,7 @@ import Layaout from "./components/Layout.vue";
 import EditProfile from "./components/EditProfile.vue";
 
 const firebaseConfig = {
-  apiKey: "AIzaSyCS8CO1UUSFYnI2nsWQM1Y3e7gbQdvtjm0",
+  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
 
   authDomain: "whatsapproyect-fd254.firebaseapp.com",
 
@@ -45,7 +45,7 @@ const routes = [
     path: "/editar-perfil",
     component: EditProfile,
     meta: { requiresAuth: true },
-  }
+  },
 ];
 const router = createRouter({
   routes,
