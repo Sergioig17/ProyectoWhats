@@ -58,9 +58,9 @@ function enviarComun(carga = {}) {
 
 // Función común para escribir: decide el evento según el chat activo.
 function typingComun(activo, carga = {}) {
-	console.log("typingComun", { activo, carga });
-	const typing = !activo;
+	const typing = activo;
 	if (carga.destinatarioUid) {
+		console.log("typingComun", { activo, carga });
 		socket.emit("typing-privado", {
 			destinatarioUid: carga.destinatarioUid,
 			remitente: state.usuarioActual.nombre,
@@ -68,8 +68,9 @@ function typingComun(activo, carga = {}) {
 		});
 		return;
 	}
-
+	
 	if (carga.roomId) {
+		console.log("typingComun", { activo, carga });
 		socket.emit("typing", {
 			nombre: state.usuarioActual.nombre,
 			typing,

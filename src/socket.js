@@ -74,6 +74,7 @@ socket.on("loggeado", (l) => {
 });
 socket.on("typing", (data) => {
   if (data.typing) {
+    console.log("socket typing", data.nombre);
     state.typing[data.nombre] = true;
   } else {
     delete state.typing[data.nombre];
@@ -153,6 +154,7 @@ socket.on("mensaje-privado", (data) => {
 });
 
 socket.on("typing-privado", (data) => {
+  console.log("socket typing-privado", data);
   if (data.typing) {
     state.typingPrivado[data.remitente] = true;
   } else {
