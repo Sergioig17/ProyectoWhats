@@ -54,7 +54,7 @@ function enviarLocal() {
 }
 
 function manejarInput() {
-  console.log("maneajando");
+
   if (mensajeInput.value.trim()) {
     emitirTyping(true);
   } else {
@@ -64,6 +64,7 @@ function manejarInput() {
 
 function emitirTyping(activo) {
   if (activo !== isTyping.value) {
+    console.log("entraemit");
     isTyping.value = activo;
     props.typing(activo);
   }
