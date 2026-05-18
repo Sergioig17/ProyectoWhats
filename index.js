@@ -1,15 +1,24 @@
 import express from "express";
 import { Server } from "socket.io";
 import { createServer } from "node:http";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 const app = express();
-const port = 3000;
+const port = process.env.PORT || 3000;
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 const server = createServer(app);
 const io = new Server(server, {
   cors: {
-    origin: "http://localhost:5173",
+    origin: true,
     methods: ["GET", "POST"],
   },
+});
+
+app.use(express.static(path.join(__dirname, "dist")));
+app.get(/.*/, (_req, res) => {
+  res.sendFile(path.join(__dirname, "dist", "index.html"));
 });
 
 /*
