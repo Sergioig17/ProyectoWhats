@@ -30,6 +30,11 @@ const historialPrivado = computed(() => {
   return state.chatsPrivadosHistorial?.[props.usuario.uid] || [];
 });
 
+const isRemoteTyping = computed(() => {
+  // state.typingPrivado keys are stored by remitente (nombre)
+  return !!state.typingPrivado[props.usuario.nombre];
+});
+
 function obtenerImagenMensaje(uid) {
   if (uid === state.usuarioActual.uid){
     return state.usuarioActual.imagen;
@@ -118,6 +123,9 @@ onMounted(() => {
     </header>
 
     <div ref="historialRef" class="chat-privado-historial">
+      <div v-if="isRemoteTyping" class="typing-indicator">
+        {{ props.usuario.nombre }} está escribiendo...
+      </div>
       <div v-for="(msg, i) in historialPrivado" :key="i" class="message-row" :class="{ 'message-own': msg.remitente_uid === state.usuarioActual.uid }">
         <div class="avatar-mini">
           <img :src="obtenerImagenMensaje(msg.remitente_uid)" :alt="msg.remitente" />
@@ -358,6 +366,15 @@ onMounted(() => {
 
 .empty-chat p {
   margin: 0;
+}
+
+.typing-indicator {
+  padding: 0.5rem 1rem;
+  color: rgba(233,240,244,0.7);
+  font-style: italic;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  margin-bottom: 0.5rem;
 }
 
 .chat-privado-input {

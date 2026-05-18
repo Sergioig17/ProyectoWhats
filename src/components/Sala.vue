@@ -29,6 +29,10 @@ const estaEnSala = computed(() => {
   return (props.room.miembros || []).includes(state.usuarioActual.uid);
 });
 
+const typingUsers = computed(() => {
+  return Object.keys(state.typing || {}).filter((n) => n && n !== state.usuarioActual.nombre);
+});
+
 function obtenerImagenMensaje(uid) {
   if (uid === state.usuarioActual.uid) {
     return state.usuarioActual.imagen;
@@ -130,6 +134,9 @@ async function archivoLocal(event) {
     </header>
 
     <div class="sala-history" ref="historialRef">
+      <div v-if="typingUsers.length" class="typing-indicator">
+        {{ typingUsers[0] }} está escribiendo...
+      </div>
       <div v-for="(m, i) in state.salasHistorial[room.id] || []" :key="i" :class="{ 'message-system': m.isSystem, 'message-own': m.remitente_uid === state.usuarioActual.uid }" class="message-row">
         <div v-if="m.isSystem" class="system-text">{{ m.texto }}</div>
         <template v-else>
@@ -232,6 +239,15 @@ async function archivoLocal(event) {
     cursor: pointer;
     font-weight: 600;
     transition: 0.15s;
+}
+
+.typing-indicator {
+  padding: 0.4rem 0.8rem;
+  color: rgba(233,240,244,0.75);
+  font-style: italic;
+  background: rgba(255,255,255,0.02);
+  border-radius: 8px;
+  margin: 0.6rem 1rem;
 }
 
 .btn-entrar {
