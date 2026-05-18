@@ -10,7 +10,7 @@ import Layaout from "./components/Layout.vue";
 import EditProfile from "./components/EditProfile.vue";
 
 const firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_API_KEY,
+  apiKey: import.meta.env.VITE_FIREBASE_API_KEY,
 
   authDomain: "whatsapproyect-fd254.firebaseapp.com",
 
