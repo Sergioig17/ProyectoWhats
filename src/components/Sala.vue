@@ -155,7 +155,7 @@ async function archivoLocal(event) {
     </div>
 
     <div class="sala-composer">
-      <input class="mensaje-input" v-model="mensaje" @keyup.enter="enviarLocal" @input="manejarInput" placeholder="Escribe en la sala..." />
+      <input class="mensaje-input" v-model="mensaje" @keyup.enter="enviarLocal" @keydown="manejarInput" placeholder="Escribe en la sala..." />
       <button class="btn-enviar" @click="enviarLocal">Enviar</button>
       <label class="file-upload" :class="{ uploading: subiendo }">
         <input type="file" @change="archivoLocal" :disabled="subiendo" />

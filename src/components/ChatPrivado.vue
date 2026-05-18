@@ -54,6 +54,7 @@ function enviarLocal() {
 }
 
 function manejarInput() {
+  console.log("maneajando");
   if (mensajeInput.value.trim()) {
     emitirTyping(true);
   } else {
@@ -146,7 +147,7 @@ onMounted(() => {
         v-model="mensajeInput"
         placeholder="Escribe un mensaje privado..."
         @keyup.enter="enviarLocal"
-        @input="manejarInput"
+        @keydown="manejarInput"
         class="input-area"
       ></textarea>
 
